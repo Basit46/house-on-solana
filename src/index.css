@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/mona-sans");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  nav .menu a {
+    @apply font-medium;
+  }
+}
+
+body {
+  background-color: #f7f2ff;
+  height: 100vh;
+  overflow-y: scroll !important;
+}
+
+.adjustWallet {
+  height: 30px !important;
+  align-self: center !important;
+  text-align: center !important;
+  align-items: center !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-s {
+  animation: spin 5s linear infinite;
+}
+.animate-spin-s:hover {
+  animation-play-state: paused;
+}
+
+.wallet-adapter-dropdown,
+nav > div > .wallet-adapter-button {
+  border: 2px solid #2c2d30 !important;
+  border-radius: 10px !important;
+}
+
+.wallet-adapter-dropdown > button,
+nav > div > .wallet-adapter-button {
+  color: black !important;
+}
+
+.wallet-adapter-dropdown:hover > button,
+nav > div > .wallet-adapter-button:hover {
+  color: white !important;
+}
