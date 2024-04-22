@@ -46,7 +46,7 @@ const PropertyDetail = () => {
         alert("Funding already completed");
         return;
       }
-      if (totalAmount + parseFloat(value) >= details.price) {
+      if (totalAmount + parseFloat(value) > details.price) {
         alert("Funding amount will be exceeded, Enter a lower value");
         return;
       }
