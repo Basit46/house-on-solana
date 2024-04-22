@@ -8,6 +8,7 @@ import PropertyDetail from "../pages/PropertyDetail";
 import ScrollToTop from "./ScrollToTop";
 import Profile from "../pages/Profile";
 import Loader from "./Loader";
+import Toast from "./Toast";
 
 const Content: FC = () => {
   return (
@@ -23,6 +24,7 @@ const Content: FC = () => {
 
       <ScrollToTop />
       <Loader />
+      <Toast />
 
       <Footer />
     </div>

@@ -18,7 +18,7 @@ import { useGlobalContext } from "../context/globalContext";
 const PropertyDetail = () => {
   const { publicKey, sendTransaction } = useWallet();
   const params = useParams();
-  const { setIsLoaderOpen } = useGlobalContext();
+  const { setIsLoaderOpen, setIsToastOpen } = useGlobalContext();
 
   const [value, setValue] = useState("");
   const [details, setDetails] = useState<propertyType>();
@@ -63,7 +63,7 @@ const PropertyDetail = () => {
       }
 
       //send sol
-
+      setIsLoaderOpen(true);
       await sendSOL(parseFloat(value));
 
       const docRef = doc(db, "properties", params.id);
@@ -79,7 +79,11 @@ const PropertyDetail = () => {
           parseFloat(currentAmount) + parseFloat(value),
       });
 
-      addNew(parseFloat(value));
+      await addNew(parseFloat(value));
+
+      setValue("");
+      setIsLoaderOpen(false);
+      setIsToastOpen(true);
     } else {
       alert("Connect Wallet");
     }
@@ -90,16 +94,9 @@ const PropertyDetail = () => {
 
   const sendSOL = useCallback(
     async (amount: number) => {
-      setIsLoaderOpen(true);
-
       if (!publicKey) throw new WalletNotConnectedError();
-      connection.getBalance(publicKey).then((bal: any) => {
-        console.log(bal / LAMPORTS_PER_SOL);
-      });
 
       let lamportsI = LAMPORTS_PER_SOL * amount;
-      console.log(publicKey.toBase58());
-      console.log("lamports sending: {}", amount);
       const transaction = new Transaction().add(
         SystemProgram.transfer({
           fromPubkey: publicKey,
@@ -109,9 +106,7 @@ const PropertyDetail = () => {
       );
 
       const signature = await sendTransaction(transaction, connection);
-
       await connection.confirmTransaction(signature, "processed");
-      setIsLoaderOpen(false);
     },
     [publicKey, sendTransaction, connection]
   );

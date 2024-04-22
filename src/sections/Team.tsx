@@ -16,7 +16,7 @@ const Team = () => {
             />
           </div>
           <h1 className="text-[2rem] font-Sec font-medium">Basit</h1>
-          <p className="text-[1.2rem]">Creator</p>
+          <p className="text-[1.2rem]">Creator / Dev</p>
         </div>
         <div className="w-[46%]">
           <div className="w-full h-[400px]">
