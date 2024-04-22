@@ -139,18 +139,18 @@ const PropertyDetail = () => {
   let percent = (totalAmount / (details?.price || 0)) * 100;
 
   return (
-    <div className="px-[80px] pt-[40px]">
+    <div className="px-[20px] md:px-[80px] pt-[40px]">
       <h1 className="text-[2rem] font-Sec font-bold">{details?.name}</h1>
 
-      <div className="my-[30px] rounded-[16px] h-[400px] flex gap-[20px]">
-        <div className="border border-[tomato] overflow-hidden w-[60%] rounded-[16px]">
+      <div className="my-[30px] rounded-[16px] lg:h-[400px] flex flex-col lg:flex-row gap-[20px]">
+        <div className="border border-[tomato] overflow-hidden w-full lg:w-[60%] rounded-[16px]">
           <img
             className="h-full w-full object-cover"
             src={details?.img}
             alt="Property"
           />
         </div>
-        <div className="flex-1 border border-[tomato] overflow-hidden rounded-[16px]">
+        <div className="lg:flex-1 h-[300px] lg:h-full border border-[tomato] overflow-hidden rounded-[16px]">
           <img
             className="object-contain h-full w-full"
             src={details?.plan}
@@ -159,24 +159,24 @@ const PropertyDetail = () => {
         </div>
       </div>
 
-      <div className="h-[300px] flex gap-[20px]">
+      <div className="lg:h-[300px] flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]">
         <div className="flex-1 rounded-[10px]">
           <p className="text-[1.1rem] font-bold">Description</p>
           <p>{details?.desc}</p>
           <h1 className="mt-[15px] text-[1rem] font-semibold text-[red]">
             Deadline: 22<sup>nd</sup> August, 2024
           </h1>
-          <div className="mt-[50px] w-fit flex gap-[20px] justify-between border-y border-[#95d5ed] py-[10px]">
+          <div className="mt-[20px] lg:mt-[50px] w-fit flex flex-col vsm:flex-row gap-[10px] vsm:gap-[20px] justify-between border-y border-[#95d5ed] py-[10px]">
             <p className="text-[1.3rem]">{details?.bedrooms} bedrooms</p>
-            <div className="h-[40px] w-0 border-l-[0.1px] border-black" />
+            <div className="hidden vsm:block h-[40px] w-0 border-l-[0.1px] border-black" />
             <p className="text-[1.3rem]">{details?.bathrooms} bathrooms</p>
-            <div className="h-[40px] w-0 border-l-[0.1px] border-black" />
+            <div className="hidden vsm:block h-[40px] w-0 border-l-[0.1px] border-black" />
             <p className="text-[1.3rem]">
               {details?.area} m<sup>2</sup>
             </p>
           </div>
         </div>
-        <div className="border-[2px] border-pink-200 w-[30%] rounded-[10px] p-[10px]">
+        <div className="border-[2px] border-pink-200 w-full sm:w-[50%] lg:w-[30%] rounded-[10px] p-[10px]">
           <p className="font-Sec text-[1.5rem] font-bold">
             {details?.price} SOL
           </p>
