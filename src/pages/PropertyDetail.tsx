@@ -2,7 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { properties, propertyType } from "../constant/propertiesList";
-import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const PropertyDetail = () => {
@@ -75,11 +75,19 @@ const PropertyDetail = () => {
       let walletAddress = publicKey.toBase58();
 
       const docRef = doc(db, "investors", walletAddress);
+
       const docSnapshot = await getDoc(docRef);
-      const currentAmount = docSnapshot.data()?.[`${params.id}`] || 0;
-      await updateDoc(docRef, {
-        [`${params.id}`]: parseFloat(currentAmount) + amount,
-      });
+
+      if (docSnapshot.data()) {
+        const currentAmount = docSnapshot.data()?.[`${params.id}`] || 0;
+        await updateDoc(docRef, {
+          [`${params.id}`]: parseFloat(currentAmount) + amount,
+        });
+      } else {
+        await setDoc(doc(db, "investors", walletAddress), {
+          [`${params.id}`]: amount,
+        });
+      }
     }
   };
 

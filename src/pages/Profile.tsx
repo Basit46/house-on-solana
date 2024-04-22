@@ -49,7 +49,7 @@ const Item = ({ item, amount }: { item: any; amount: any }) => {
         <img className="w-[100px]" src={details?.img} alt="property" />
         <h1 className="font-bold text-[1.3rem]">{details?.name}</h1>
       </div>
-      <p className="font-medium">You Invested {amount} SOL</p>
+      <p className="font-medium">You Invested {amount.toFixed(2)} SOL</p>
     </div>
   );
 };
