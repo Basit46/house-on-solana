@@ -9,11 +9,13 @@ import ScrollToTop from "./ScrollToTop";
 import Profile from "../pages/Profile";
 import Loader from "./Loader";
 import Toast from "./Toast";
+import MobileMenu from "./MobileMenu";
 
 const Content: FC = () => {
   return (
     <div className="font-Pry">
       <Navbar />
+      <MobileMenu />
 
       <Routes>
         <Route path="/" element={<Home />} />

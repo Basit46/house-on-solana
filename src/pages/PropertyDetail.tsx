@@ -53,6 +53,10 @@ const PropertyDetail = () => {
         alert("Enter a value in SOL");
         return;
       }
+      if (parseFloat(value) <= 0) {
+        alert("Don't be thick, Enter a value greater than 0");
+        return;
+      }
       if (totalAmount >= details.price) {
         alert("Funding already completed");
         return;

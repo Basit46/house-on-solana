@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { properties, propertyType } from "../constant/propertiesList";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { publicKey } = useWallet();
   const [investedProperties, setInvestedProperties] = useState<any>();
+
+  useEffect(() => {
+    if (!publicKey) {
+      navigate("/properties");
+    }
+  }, [publicKey]);
 
   useEffect(() => {
     if (publicKey) {
@@ -19,12 +27,12 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="px-[80px] mt-[40px] min-h-[70vh]">
-      <h1 className="font-Sec text-[2rem] font-bold">
+    <div className="px-[20px] md:px-[80px] mt-[40px] min-h-[70vh]">
+      <h1 className="font-Sec text-[1.5rem] sm:text-[2rem] font-bold">
         Your Investment portfolio 🌱🚀
       </h1>
-      <p className="mt-[10px] font-medium">{publicKey?.toBase58()}</p>
-      <div className="mt-[50px] flex flex-col gap-[15px]">
+
+      <div className="mt-[40px] flex flex-col gap-[15px]">
         {investedProperties &&
           Object.keys(investedProperties).map((item) => (
             <Item item={item} amount={investedProperties[item]} key={item} />
@@ -46,8 +54,12 @@ const Item = ({ item, amount }: { item: any; amount: any }) => {
   return (
     <div className="w-full flex gap-[30px] items-center border-black border-b-[2px] pb-[10px]">
       <div className="flex gap-[10px] items-center">
-        <img className="w-[100px]" src={details?.img} alt="property" />
-        <h1 className="font-bold text-[1.3rem]">{details?.name}</h1>
+        <img
+          className="w-[60px] sm:w-[100px]"
+          src={details?.img}
+          alt="property"
+        />
+        <h1 className="font-bold sm:text-[1.3rem]">{details?.name}</h1>
       </div>
       <p className="font-medium">You Invested {amount.toFixed(2)} SOL</p>
     </div>

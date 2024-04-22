@@ -3,12 +3,12 @@ import mujeeb from "../assets/mujeeb.jpg";
 
 const Team = () => {
   return (
-    <div className="relative z-[3] mt-[100px] px-[80px]">
+    <div className="relative z-[3] mt-[100px] px-[20px] md:px-[80px]">
       <h1 className="text-[2.5rem] font-Sec font-bold">Meet our Team</h1>
 
-      <div className="mt-[30px] flex justify-between">
-        <div className="w-[46%]">
-          <div className="w-full h-[400px]">
+      <div className="mt-[30px] flex flex-col xmd:flex-row gap-[30px] xmd:gap-0 justify-between">
+        <div className="w-full xmd:w-[46%]">
+          <div className="w-full h-fit">
             <img
               className="h-full w-full object-cover"
               src={basit}
@@ -18,8 +18,8 @@ const Team = () => {
           <h1 className="text-[2rem] font-Sec font-medium">Basit</h1>
           <p className="text-[1.2rem]">Creator / Dev</p>
         </div>
-        <div className="w-[46%]">
-          <div className="w-full h-[400px]">
+        <div className="w-full xmd:w-[46%]">
+          <div className="w-full h-fit">
             <img
               className="h-full w-full object-cover"
               src={mujeeb}

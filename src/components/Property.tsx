@@ -9,14 +9,14 @@ type propType = {
 
 const Property = ({ property }: propType) => {
   return (
-    <Link to={`/properties/${property.id}`} className="w-[46%]">
-      <div className="relative w-full h-[462px]">
+    <Link to={`/properties/${property.id}`} className="w-full lg:w-[46%]">
+      <div className="relative w-full hfit lg:h-[462px]">
         <img
           className="h-full w-full object-cover"
           src={property.img}
           alt="House"
         />
-        <div className="absolute top-[20px] left-[40px] bg-white px-[20px] py-[3px] text-[1.5rem] font-bold">
+        <div className="absolute top-[10px] lg:top-[20px] left-[10px] lg:left-[40px] bg-white px-[20px] py-[3px] text-[1.5rem] font-bold">
           {property.price} sol
         </div>
       </div>
