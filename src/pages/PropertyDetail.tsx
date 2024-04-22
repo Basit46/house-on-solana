@@ -1,13 +1,24 @@
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { properties, propertyType } from "../constant/propertiesList";
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
+import { Connection } from "@metaplex/js";
+import {
+  clusterApiUrl,
+  Transaction,
+  SystemProgram,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+} from "@solana/web3.js";
+import { useGlobalContext } from "../context/globalContext";
 
 const PropertyDetail = () => {
-  const { publicKey } = useWallet();
+  const { publicKey, sendTransaction } = useWallet();
   const params = useParams();
+  const { setIsLoaderOpen } = useGlobalContext();
 
   const [value, setValue] = useState("");
   const [details, setDetails] = useState<propertyType>();
@@ -51,6 +62,10 @@ const PropertyDetail = () => {
         return;
       }
 
+      //send sol
+
+      await sendSOL(parseFloat(value));
+
       const docRef = doc(db, "properties", params.id);
       let walletAddress = publicKey.toBase58();
 
@@ -69,6 +84,37 @@ const PropertyDetail = () => {
       alert("Connect Wallet");
     }
   };
+
+  const connection = new Connection(clusterApiUrl("devnet"));
+  let theWallet = "3W2vrGsj7HVrdr3hLRGZhqyqzUjSQnqz8yXPtWCBgpWs";
+
+  const sendSOL = useCallback(
+    async (amount: number) => {
+      setIsLoaderOpen(true);
+
+      if (!publicKey) throw new WalletNotConnectedError();
+      connection.getBalance(publicKey).then((bal: any) => {
+        console.log(bal / LAMPORTS_PER_SOL);
+      });
+
+      let lamportsI = LAMPORTS_PER_SOL * amount;
+      console.log(publicKey.toBase58());
+      console.log("lamports sending: {}", amount);
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey(theWallet),
+          lamports: lamportsI,
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection);
+
+      await connection.confirmTransaction(signature, "processed");
+      setIsLoaderOpen(false);
+    },
+    [publicKey, sendTransaction, connection]
+  );
 
   const addNew = async (amount: number) => {
     if (publicKey) {
