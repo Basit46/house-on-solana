@@ -1,4 +1,3 @@
-// src/wallets/walletAdapters.ts
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
   GlowWalletAdapter,

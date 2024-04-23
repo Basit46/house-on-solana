@@ -12,8 +12,11 @@ type contextType = {
 };
 
 const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
+  //To manage the menu opening and closing <MobileMenu />
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // To manage the opening and closing of the loader <Loader />
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
+  // To manage the opening and closing of the Toast <Toast />
   const [isToastOpen, setIsToastOpen] = useState(false);
 
   return (

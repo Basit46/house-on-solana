@@ -3,6 +3,7 @@ import { useGlobalContext } from "../context/globalContext";
 
 const MobileMenu = () => {
   const { isMenuOpen, setIsMenuOpen } = useGlobalContext();
+
   return (
     <div
       className={`${

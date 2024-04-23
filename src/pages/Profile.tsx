@@ -8,14 +8,18 @@ import { properties, propertyType } from "../constant/propertiesList";
 const Profile = () => {
   const navigate = useNavigate();
   const { publicKey } = useWallet();
-  const [investedProperties, setInvestedProperties] = useState<any>();
 
+  //Reroute the user if user's wallet is not connected
   useEffect(() => {
     if (!publicKey) {
       navigate("/properties");
     }
   }, [publicKey]);
 
+  //The properties the user invested in
+  const [investedProperties, setInvestedProperties] = useState<any>();
+
+  //To fetch the invested properties of the user of the connected wallet
   useEffect(() => {
     if (publicKey) {
       const address = publicKey?.toBase58();

@@ -20,11 +20,16 @@ const PropertyDetail = () => {
   const params = useParams();
   const { setIsLoaderOpen, setIsToastOpen } = useGlobalContext();
 
+  //State to manage the number input
   const [value, setValue] = useState("");
+  //The details of the selected property
   const [details, setDetails] = useState<propertyType>();
+  //The total amount invested in the particular property
   const [totalAmount, setTotalAmount] = useState(0);
+  //The total number of investors that invested in the particular property
   const [totalInvestors, setTotalInvestors] = useState(0);
 
+  //To get the details, total amount and total investors of a selected project
   useEffect(() => {
     setDetails(properties.find((item) => item.id.toString() === params.id));
 
@@ -47,6 +52,7 @@ const PropertyDetail = () => {
     }
   });
 
+  //Logic to Invest in a property
   const handleClick = async () => {
     if (publicKey && params.id && details) {
       if (value == "") {
@@ -66,8 +72,9 @@ const PropertyDetail = () => {
         return;
       }
 
-      //send sol
       setIsLoaderOpen(true);
+
+      //func to send sol
       await sendSOL(parseFloat(value));
 
       const docRef = doc(db, "properties", params.id);
@@ -78,11 +85,11 @@ const PropertyDetail = () => {
       const currentAmount =
         docSnapshot.data()?.investments?.[walletAddress]?.amount || 0;
 
+      // Save the investment details in firebase
       await updateDoc(docRef, {
         [`investments.${walletAddress}.amount`]:
           parseFloat(currentAmount) + parseFloat(value),
       });
-
       await addNew(parseFloat(value));
 
       setValue("");
@@ -94,6 +101,7 @@ const PropertyDetail = () => {
   };
 
   const connection = new Connection(clusterApiUrl("devnet"));
+  //Wallet that recieves sent SOL
   let theWallet = "3W2vrGsj7HVrdr3hLRGZhqyqzUjSQnqz8yXPtWCBgpWs";
 
   const sendSOL = useCallback(
@@ -115,12 +123,12 @@ const PropertyDetail = () => {
     [publicKey, sendTransaction, connection]
   );
 
+  //Save the investor details in firebase
   const addNew = async (amount: number) => {
     if (publicKey) {
       let walletAddress = publicKey.toBase58();
 
       const docRef = doc(db, "investors", walletAddress);
-
       const docSnapshot = await getDoc(docRef);
 
       if (docSnapshot.data()) {
@@ -136,6 +144,7 @@ const PropertyDetail = () => {
     }
   };
 
+  //Calculate percent of the invested amount
   let percent = (totalAmount / (details?.price || 0)) * 100;
 
   return (

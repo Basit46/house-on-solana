@@ -3,11 +3,7 @@ import outline from "../assets/premiumBtn.svg";
 import { Link } from "react-router-dom";
 import { propertyType } from "../constant/propertiesList";
 
-type propType = {
-  property: propertyType;
-};
-
-const Property = ({ property }: propType) => {
+const Property = ({ property }: { property: propertyType }) => {
   return (
     <Link to={`/properties/${property.id}`} className="w-full lg:w-[46%]">
       <div className="relative w-full hfit lg:h-[462px]">
