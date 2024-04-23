@@ -1,5 +1,7 @@
 # HouseOnSol
 
+https://github.com/Basit46/house-on-solana/assets/99395234/f552e16e-6402-44f6-bf29-e4f262f96e5c
+
 Welcome to the HousOnSol! This platform enables users to invest in real estate properties using Solana (SOL) cryptocurrency, leveraging the security and efficiency of blockchain technology. Whether you're a seasoned investor or exploring new opportunities, our platform provides a seamless and transparent way to participate in the real estate market.
 
 ## Features
